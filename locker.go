@@ -6,22 +6,16 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/redis/go-redis/v9"
 )
 
 type RedisLocker struct {
 	client *redis.Client
 }
 
-func NewRedisLocker(redisAddr, redisPassword string, redisDB int) *RedisLocker {
-	rdb := redis.NewClient(&redis.Options{
-		Addr:     redisAddr,
-		Password: redisPassword, // no password set
-		DB:       redisDB,       // default DB
-	})
-
+func NewRedisLocker(client *redis.Client) *RedisLocker {
 	return &RedisLocker{
-		client: rdb,
+		client: client,
 	}
 }
 
